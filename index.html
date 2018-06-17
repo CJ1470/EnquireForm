@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+</head>
+<body>
+
+<h3>Enquire Form</h3>
+
+<div class="container">
+  <form name="EnquireForm" action="/AddEnquire.php" method="POST" onsubmit="return validateForm()">
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="fname" placeholder="Your First Name">
+
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lname" placeholder="Your Last Name">
+
+    <label for="email">Email</label>
+    <input type="text" id="email" name="email" placeholder="Your Email Here">
+
+    <label for="enquiretype">Country</label>
+    <select id="enquiretype" name="enquiretype">
+      <option value="sales">Sales</option>
+      <option value="support">Support</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label for="enquiredetails">Detailed Description of Enquire</label>
+    <textarea id="enquiredetails" name="enquiredetails" placeholder="Write something.." style="height:200px"></textarea>
+
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+</body>
+<script type="text/javascript">
+    
+    function validateForm() {
+
+        var IsFormValid = true;
+        var Msg = "";
+
+        var fname = document.forms["EnquireForm"]["fname"].value;
+        var lname = document.forms["EnquireForm"]["lname"].value;
+        var email = document.forms["EnquireForm"]["email"].value;
+        var enquiredetails = document.forms["EnquireForm"]["enquiredetails"].value;
+
+        if (fname == "") {
+            Msg += "First Name must be filled out" + "\n";
+            IsFormValid = false;
+        }
+
+        if (lname == "") {
+            Msg += "Last Name must be filled out" + "\n";
+            IsFormValid = false;
+        }
+
+        if (!isEmail(email)) {
+            Msg += "Email is Invalid" + "\n";
+            IsFormValid = false;
+        }
+
+        if (enquiredetails == "") {
+            Msg += "Enquire Details must be filled out" + "\n";
+            IsFormValid = false;
+        }
+
+        if(!IsFormValid){
+            alert(Msg);
+        }
+        return IsFormValid;
+    }
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+</script>
+
+</html>
